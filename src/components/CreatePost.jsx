@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Save, X, Image as ImageIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useBlog } from '../context/BlogContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CreatePost({ existingPost, onSave, onCancel }) {
   const { createPost } = useBlog();
@@ -32,21 +34,30 @@ function CreatePost({ existingPost, onSave, onCancel }) {
 
     const postData = {
       ...data,
-      tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0),
+      tags: data.tags
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter((tag) => tag.length > 0),
       excerpt: data.excerpt || data.content.substring(0, 150) + '...'
     };
-    console.log("post data", postData);
 
-    if (onSave) {
-      // Editing mode
-      onSave(postData);
-    } else {
-      // Creating new post
-      createPost(postData);
-      navigate('/');
+    try {
+      if (onSave) {
+        // Editing mode
+        await onSave(postData);
+        toast.success('Post updated successfully');
+      } else {
+        // Creating new post
+        await createPost(postData);
+        toast.success('Post created successfully');
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Error saving post:', error);
+      toast.error('Failed to save post. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
 
   const handleCancel = () => {
@@ -66,7 +77,7 @@ function CreatePost({ existingPost, onSave, onCancel }) {
           </h1>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6" noValidate>
           {/* Title */}
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
@@ -142,9 +153,7 @@ function CreatePost({ existingPost, onSave, onCancel }) {
               className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter tags separated by commas (e.g., react, javascript, tutorial)"
             />
-            <p className="text-sm text-gray-500 mt-1">
-              Separate multiple tags with commas
-            </p>
+            <p className="text-sm text-gray-500 mt-1">Separate multiple tags with commas</p>
           </div>
 
           {/* Actions */}
@@ -165,12 +174,11 @@ function CreatePost({ existingPost, onSave, onCancel }) {
             >
               <Save className="h-4 w-4" />
               <span>
-                {isSubmitting 
-                  ? 'Saving...' 
-                  : existingPost 
-                    ? 'Update Post' 
-                    : 'Publish Post'
-                }
+                {isSubmitting
+                  ? 'Saving...'
+                  : existingPost
+                  ? 'Update Post'
+                  : 'Publish Post'}
               </span>
             </button>
           </div>
