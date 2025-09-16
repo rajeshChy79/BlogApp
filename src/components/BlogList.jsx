@@ -9,18 +9,18 @@ function BlogList({ posts, onEdit, onDelete }) {
 
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-    const endIndex = startIndex + POSTS_PER_PAGE;
-    return posts.slice(startIndex, endIndex);
+    return posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
   }, [posts, currentPage]);
 
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 
   const handlePageChange = (page) => {
+    if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  if (posts.length === 0) {
+  if (!posts.length) {
     return (
       <div className="text-center py-12">
         <p className="text-gray-500 text-lg">No posts found.</p>
@@ -32,17 +32,12 @@ function BlogList({ posts, onEdit, onDelete }) {
     <div className="space-y-8">
       {/* Posts Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {paginatedPosts.map((post) => (
-          <BlogCard
-            key={post.id}
-            post={post}
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
+        {paginatedPosts.map(post => (
+          <BlogCard key={post.id} post={post} onEdit={onEdit} onDelete={onDelete} />
         ))}
       </div>
 
-      {/* Pagination */}
+      {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="flex justify-center items-center space-x-2 pt-8">
           <button
@@ -55,7 +50,7 @@ function BlogList({ posts, onEdit, onDelete }) {
           </button>
 
           <div className="flex space-x-1">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
@@ -64,6 +59,7 @@ function BlogList({ posts, onEdit, onDelete }) {
                     ? 'bg-blue-600 text-white'
                     : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700'
                 }`}
+                aria-current={currentPage === page ? 'page' : undefined}
               >
                 {page}
               </button>
