@@ -11,13 +11,11 @@ function Home({ searchQuery }) {
   const { user } = useAuth();
   const [editingPost, setEditingPost] = useState(null);
 
-  // Choose posts to display based on search query
+  // Determine posts to show based on search query or all posts
   const displayPosts = searchQuery ? searchPosts(searchQuery) : posts;
 
-  // Edit handlers
-  const handleEdit = (post) => {
-    setEditingPost(post.id);
-  };
+  // Handlers for edit/save/cancel/delete posts
+  const handleEdit = (post) => setEditingPost(post.id);
 
   const handleSaveEdit = (postData) => {
     if (editingPost) {
@@ -26,17 +24,13 @@ function Home({ searchQuery }) {
     }
   };
 
-  const handleCancelEdit = () => {
-    setEditingPost(null);
-  };
+  const handleCancelEdit = () => setEditingPost(null);
 
-  const handleDelete = (postId) => {
-    deletePost(postId);
-  };
+  const handleDelete = (postId) => deletePost(postId);
 
-  // If editingPost is set, show CreatePost to edit
+  // If currently editing a post, show the editor
   if (editingPost) {
-    const post = posts.find(p => p.id === editingPost);
+    const post = posts.find((p) => p.id === editingPost);
     if (post) {
       return (
         <CreatePost
@@ -48,10 +42,10 @@ function Home({ searchQuery }) {
     }
   }
 
-  // Statistics for display on homepage
+  // Statistics for homepage
   const stats = [
     { icon: BookOpen, label: 'Total Posts', value: posts.length },
-    { icon: Users, label: 'Active Writers', value: new Set(posts.map(p => p.author.id)).size },
+    { icon: Users, label: 'Active Writers', value: new Set(posts.map((p) => p.author.id)).size },
     { icon: TrendingUp, label: 'Total Reads', value: posts.reduce((acc, post) => acc + post.likes.length, 0) * 5 }
   ];
 
@@ -105,7 +99,7 @@ function Home({ searchQuery }) {
         </div>
       )}
 
-      {/* Stats */}
+      {/* Stats Section */}
       {!searchQuery && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {stats.map((stat, index) => (
@@ -129,11 +123,8 @@ function Home({ searchQuery }) {
         <h2 className="text-2xl font-bold text-gray-900 mb-6">
           {searchQuery ? 'Search Results' : 'Latest Posts'}
         </h2>
-        <BlogList
-          posts={displayPosts}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
+
+        <BlogList posts={displayPosts} onEdit={handleEdit} onDelete={handleDelete} />
       </div>
     </div>
   );
