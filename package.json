@@ -1,16 +1,6 @@
 {
-  "name": "blogspace",
-  "private": true,
-  "version": "1.0.0",
-  "type": "module",
-  "description": "A modern, full-featured blog platform built with React and JavaScript",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.6.5",
     "@supabase/supabase-js": "^2.57.4",
     "date-fns": "^3.2.0",
@@ -41,4 +31,8 @@
   ],
   "author": "BlogSpace Team",
   "license": "MIT"
+=======
+    "react-toastify": "^11.0.5"
+  }
+>>>>>>> 566fd0b (Add react-toastify for toast notifications)
 }
