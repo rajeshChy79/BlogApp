@@ -19,6 +19,7 @@ app.use(cors({
   origin: process.env.CLIENT_URL || 'https://blogapp-frontend-mc3b.onrender.com',
   credentials: true,
 }));
+
 app.use(express.json());
 
 // Static folder for uploads
