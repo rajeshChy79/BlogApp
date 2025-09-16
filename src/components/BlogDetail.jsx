@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
-import { 
-  Heart, 
-  Bookmark, 
-  MessageCircle, 
-  Share2, 
-  ArrowLeft,
-  Edit,
-  Trash2,
-  Send
-} from 'lucide-react';
+import { Heart, Bookmark, MessageCircle, Share2, ArrowLeft, Edit, Trash2, Send } from 'lucide-react';
 import { useBlog } from '../context/BlogContext';
 import { useAuth } from '../context/AuthContext';
 
@@ -18,10 +9,10 @@ function BlogDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { 
-    getPostById, 
-    likePost, 
-    bookmarkPost, 
+  const {
+    getPostById,
+    likePost,
+    bookmarkPost,
     deletePost,
     getCommentsByPost,
     addComment,
@@ -39,12 +30,7 @@ function BlogDetail() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Post not found</h1>
-          <Link 
-            to="/" 
-            className="text-blue-600 hover:text-blue-700 font-medium"
-          >
-            ← Back to home
-          </Link>
+          <Link to="/" className="text-blue-600 hover:text-blue-700 font-medium">← Back to home</Link>
         </div>
       </div>
     );
@@ -81,12 +67,10 @@ function BlogDetail() {
           text: post.excerpt,
           url: window.location.href
         });
-      } catch (error) {
-        // Fallback to copying URL
+      } catch {
         navigator.clipboard.writeText(window.location.href);
       }
     } else {
-      // Fallback to copying URL
       navigator.clipboard.writeText(window.location.href);
       alert('Link copied to clipboard!');
     }
@@ -97,10 +81,7 @@ function BlogDetail() {
     if (!user || !newComment.trim() || !id) return;
 
     setIsSubmittingComment(true);
-    addComment({
-      content: newComment.trim(),
-      postId: id
-    });
+    await addComment({ content: newComment.trim(), postId: id });
     setNewComment('');
     setIsSubmittingComment(false);
   };
@@ -115,10 +96,7 @@ function BlogDetail() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Back button */}
       <div className="mb-6">
-        <Link 
-          to="/" 
-          className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
-        >
+        <Link to="/" className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors">
           <ArrowLeft className="h-4 w-4" />
           <span>Back to posts</span>
         </Link>
@@ -129,11 +107,7 @@ function BlogDetail() {
         {/* Featured Image */}
         {post.image && (
           <div className="aspect-video overflow-hidden">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="w-full h-full object-cover"
-            />
+            <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
           </div>
         )}
 
@@ -150,8 +124,7 @@ function BlogDetail() {
               <div>
                 <h3 className="font-medium text-gray-900">{post.author.name}</h3>
                 <p className="text-sm text-gray-500">
-                  {format(new Date(post.createdAt), 'MMMM dd, yyyy')} • 
-                  {Math.ceil(post.content.length / 1000)} min read
+                  {format(new Date(post.createdAt), 'MMMM dd, yyyy')} • {Math.ceil(post.content.length / 1000)} min read
                 </p>
               </div>
             </div>
@@ -178,17 +151,12 @@ function BlogDetail() {
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
-            {post.title}
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">{post.title}</h1>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-8">
             {post.tags.map((tag, index) => (
-              <span
-                key={index}
-                className="px-3 py-1 bg-blue-50 text-blue-600 text-sm rounded-full font-medium"
-              >
+              <span key={index} className="px-3 py-1 bg-blue-50 text-blue-600 text-sm rounded-full font-medium">
                 #{tag}
               </span>
             ))}
@@ -196,9 +164,7 @@ function BlogDetail() {
 
           {/* Content */}
           <div className="prose prose-lg max-w-none">
-            <div className="text-gray-800 leading-relaxed whitespace-pre-wrap">
-              {post.content}
-            </div>
+            <div className="text-gray-800 leading-relaxed whitespace-pre-wrap">{post.content}</div>
           </div>
 
           {/* Actions */}
@@ -215,18 +181,12 @@ function BlogDetail() {
                 <span>{post.likes.length}</span>
               </button>
 
-              <a
-                href="#comments"
-                className="flex items-center space-x-2 text-gray-500 hover:text-blue-600 transition-colors"
-              >
+              <a href="#comments" className="flex items-center space-x-2 text-gray-500 hover:text-blue-600 transition-colors">
                 <MessageCircle className="h-5 w-5" />
                 <span>{post.commentsCount}</span>
               </a>
 
-              <button
-                onClick={handleShare}
-                className="flex items-center space-x-2 text-gray-500 hover:text-green-600 transition-colors"
-              >
+              <button onClick={handleShare} className="flex items-center space-x-2 text-gray-500 hover:text-green-600 transition-colors">
                 <Share2 className="h-5 w-5" />
                 <span>Share</span>
               </button>
@@ -249,9 +209,7 @@ function BlogDetail() {
       {/* Comments Section */}
       <section id="comments" className="mt-8">
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">
-            Comments ({comments.length})
-          </h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-6">Comments ({comments.length})</h2>
 
           {/* Add Comment */}
           {user ? (
@@ -286,10 +244,7 @@ function BlogDetail() {
           ) : (
             <div className="mb-8 p-4 bg-gray-50 rounded-lg text-center">
               <p className="text-gray-600 mb-3">Please log in to leave a comment</p>
-              <Link
-                to="/login"
-                className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
+              <Link to="/login" className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                 Log In
               </Link>
             </div>
@@ -308,9 +263,7 @@ function BlogDetail() {
                   <div className="bg-gray-50 rounded-lg px-4 py-3">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="font-medium text-gray-900">{comment.author.name}</h4>
-                      <span className="text-xs text-gray-500">
-                        {format(new Date(comment.createdAt), 'MMM dd, yyyy')}
-                      </span>
+                      <span className="text-xs text-gray-500">{format(new Date(comment.createdAt), 'MMM dd, yyyy')}</span>
                     </div>
                     <p className="text-gray-800 text-sm">{comment.content}</p>
                   </div>
@@ -319,14 +272,14 @@ function BlogDetail() {
                       onClick={() => handleLikeComment(comment.id)}
                       disabled={!user}
                       className={`flex items-center space-x-1 text-xs transition-colors ${
-                        user && comment.likes.includes(user.id)
-                          ? 'text-red-500'
-                          : 'text-gray-500 hover:text-red-500'
+                        user && comment.likes.includes(user.id) ? 'text-red-500' : 'text-gray-500 hover:text-red-500'
                       } disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
-                      <Heart className={`h-3 w-3 ${
-                        user && comment.likes.includes(user.id) ? 'fill-current' : ''
-                      }`} />
+                      <Heart
+                        className={`h-3 w-3 ${
+                          user && comment.likes.includes(user.id) ? 'fill-current' : ''
+                        }`}
+                      />
                       <span>{comment.likes.length}</span>
                     </button>
                   </div>
@@ -335,9 +288,7 @@ function BlogDetail() {
             ))}
 
             {comments.length === 0 && (
-              <p className="text-gray-500 text-center py-8">
-                No comments yet. Be the first to share your thoughts!
-              </p>
+              <p className="text-gray-500 text-center py-8">No comments yet. Be the first to share your thoughts!</p>
             )}
           </div>
         </div>
