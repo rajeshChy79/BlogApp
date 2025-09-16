@@ -35,6 +35,7 @@ function CreatePost({ existingPost, onSave, onCancel }) {
       tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0),
       excerpt: data.excerpt || data.content.substring(0, 150) + '...'
     };
+    console.log("post data", postData);
 
     if (onSave) {
       // Editing mode
