@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, User, Loader } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -13,26 +15,24 @@ function Signup() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [error, setError] = useState('');
   const { signup, loading } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
 
     if (!formData.name || !formData.email || !formData.password) {
-      setError('Please fill in all required fields');
+      toast.error('Please fill in all required fields');
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      toast.error('Passwords do not match');
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters long');
+      toast.error('Password must be at least 6 characters long');
       return;
     }
 
@@ -44,17 +44,18 @@ function Signup() {
     });
 
     if (success) {
+      toast.success('Account created successfully!');
       navigate('/');
     } else {
-      setError('User with this email already exists');
+      toast.error('User with this email already exists');
     }
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       [e.target.name]: e.target.value
-    });
+    }));
   };
 
   return (
@@ -67,18 +68,14 @@ function Signup() {
           </p>
         </div>
 
-        <form className="mt-8 space-y-6 bg-white p-8 rounded-xl shadow-sm border border-gray-100" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
+        <form
+          className="mt-8 space-y-6 bg-white p-8 rounded-xl shadow-sm border border-gray-100"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <div className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                Full Name *
-              </label>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
@@ -95,9 +92,7 @@ function Signup() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                Email address *
-              </label>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email address *</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
@@ -115,9 +110,7 @@ function Signup() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                Password *
-              </label>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">Password *</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
@@ -135,6 +128,7 @@ function Signup() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -142,9 +136,7 @@ function Signup() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                Confirm Password *
-              </label>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">Confirm Password *</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
@@ -162,6 +154,7 @@ function Signup() {
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
                 >
                   {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -169,9 +162,7 @@ function Signup() {
             </div>
 
             <div>
-              <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-2">
-                Bio (Optional)
-              </label>
+              <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-2">Bio (Optional)</label>
               <textarea
                 id="bio"
                 name="bio"
