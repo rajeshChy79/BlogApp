@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://blogapp-mzev.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://blogapp-mzev.onrender.com/api';
 
 // Create axios instance
 const api = axios.create({
