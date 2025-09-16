@@ -62,7 +62,9 @@ export const getBlogPost = async (req, res, next) => {
 export const createBlogPost = async (req, res, next) => {
   try {
     req.body.author = req.user.id;
+    console.log(req.user.id);
     const post = await BlogPost.create(req.body);
+    console.log(post);
 
     const populatedPost = await BlogPost.findById(post._id).populate('author', 'name email avatar bio');
 
