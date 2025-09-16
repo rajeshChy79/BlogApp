@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Calendar, MapPin, Edit3 } from 'lucide-react';
+import { User, Calendar, Edit3 } from 'lucide-react';
 import { format } from 'date-fns';
 import { useAuth } from '../context/AuthContext';
 import { useBlog } from '../context/BlogContext';
@@ -42,7 +42,7 @@ function Profile() {
   };
 
   if (editingPost) {
-    const post = userPosts.find(p => p.id === editingPost);
+    const post = userPosts.find((p) => p.id === editingPost);
     if (post) {
       return (
         <CreatePost
@@ -63,7 +63,10 @@ function Profile() {
           <div className="flex items-start space-x-4">
             <div className="relative -mt-16">
               <img
-                src={user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`}
+                src={
+                  user.avatar ||
+                  `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`
+                }
                 alt={user.name}
                 className="w-24 h-24 rounded-full border-4 border-white shadow-lg bg-white"
               />
@@ -71,9 +74,7 @@ function Profile() {
             <div className="flex-1 pt-4">
               <h1 className="text-2xl font-bold text-gray-900">{user.name}</h1>
               <p className="text-gray-600 mt-1">{user.email}</p>
-              {user.bio && (
-                <p className="text-gray-700 mt-3">{user.bio}</p>
-              )}
+              {user.bio && <p className="text-gray-700 mt-3">{user.bio}</p>}
               <div className="flex items-center space-x-4 mt-4 text-sm text-gray-500">
                 <div className="flex items-center space-x-1">
                   <Calendar className="h-4 w-4" />
@@ -117,7 +118,9 @@ function Profile() {
               <div className="text-center py-12">
                 <Edit3 className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">No posts yet</h3>
-                <p className="text-gray-500 mb-4">You haven't written any posts. Start sharing your thoughts!</p>
+                <p className="text-gray-500 mb-4">
+                  You haven't written any posts. Start sharing your thoughts!
+                </p>
                 <a
                   href="/create"
                   className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
