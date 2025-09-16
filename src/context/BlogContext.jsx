@@ -1,6 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { blogAPI, commentAPI } from '../services/api';
 import { useAuth } from './AuthContext';
+import { toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const BlogContext = createContext();
 
@@ -17,14 +20,10 @@ export const BlogProvider = ({ children }) => {
   const [comments, setComments] = useState([]);
   const { user } = useAuth();
 
-  useEffect(() => {
-    loadPosts();
-  }, []);
-
-  const loadPosts = async () => {
+  const loadPosts = useCallback(async () => {
     try {
       const response = await blogAPI.getPosts();
-      const postsData = response.data.data.map((post) => ({
+      const postsData = response.data.data.map(post => ({
         id: post._id,
         title: post.title,
         content: post.content,
@@ -37,107 +36,100 @@ export const BlogProvider = ({ children }) => {
           email: post.author.email,
           bio: post.author.bio,
           avatar: post.author.avatar,
-          joinDate: post.author.createdAt
+          joinDate: post.author.createdAt,
         },
         createdAt: post.createdAt,
         updatedAt: post.updatedAt,
         likes: post.likes,
         bookmarks: post.bookmarks,
-        commentsCount: post.commentsCount || 0
+        commentsCount: post.commentsCount || 0,
       }));
       setPosts(postsData);
     } catch (error) {
       console.error('Error loading posts:', error);
+      toast.error('Failed to load posts. Please try again later.');
+    }
+  }, []);
+
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts]);
+
+  const createPost = async (postData) => {
+    if (!user) return;
+    try {
+      await blogAPI.createPost(postData);
+      await loadPosts();
+      toast.success('Post created successfully.');
+    } catch (error) {
+      console.error('Error creating post:', error);
+      toast.error('Failed to create post.');
     }
   };
 
-  const savePosts = (newPosts) => {
-    setPosts(newPosts);
-  };
-
-  const saveComments = (newComments) => {
-    setComments(newComments);
-    localStorage.setItem('blogComments', JSON.stringify(newComments));
-  };
-
-  const createPost = (postData) => {
-    console.log("postData:",postData);
+  const updatePost = async (id, updateData) => {
     if (!user) return;
-
-    blogAPI.createPost(postData)
-      .then(() => {
-        loadPosts();
-      })
-      .catch((error) => {
-        console.error('Error creating post:', error);
-      });
+    try {
+      await blogAPI.updatePost(id, updateData);
+      await loadPosts();
+      toast.success('Post updated successfully.');
+    } catch (error) {
+      console.error('Error updating post:', error);
+      toast.error('Failed to update post.');
+    }
   };
 
-  const updatePost = (id, updateData) => {
+  const deletePost = async (id) => {
     if (!user) return;
-
-    blogAPI.updatePost(id, updateData)
-      .then(() => {
-        loadPosts();
-      })
-      .catch((error) => {
-        console.error('Error updating post:', error);
-      });
+    try {
+      await blogAPI.deletePost(id);
+      await loadPosts();
+      toast.success('Post deleted successfully.');
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      toast.error('Failed to delete post.');
+    }
   };
 
-  const deletePost = (id) => {
+  const likePost = async (id) => {
     if (!user) return;
-
-    blogAPI.deletePost(id)
-      .then(() => {
-        loadPosts();
-      })
-      .catch((error) => {
-        console.error('Error deleting post:', error);
-      });
+    try {
+      await blogAPI.likePost(id);
+      await loadPosts();
+    } catch (error) {
+      console.error('Error liking post:', error);
+      toast.error('Failed to like post.');
+    }
   };
 
-  const likePost = (id) => {
+  const bookmarkPost = async (id) => {
     if (!user) return;
-
-    blogAPI.likePost(id)
-      .then(() => {
-        loadPosts();
-      })
-      .catch((error) => {
-        console.error('Error liking post:', error);
-      });
+    try {
+      await blogAPI.bookmarkPost(id);
+      await loadPosts();
+    } catch (error) {
+      console.error('Error bookmarking post:', error);
+      toast.error('Failed to bookmark post.');
+    }
   };
 
-  const bookmarkPost = (id) => {
+  const addComment = async (commentData) => {
     if (!user) return;
-
-    blogAPI.bookmarkPost(id)
-      .then(() => {
-        loadPosts();
-      })
-      .catch((error) => {
-        console.error('Error bookmarking post:', error);
-      });
+    try {
+      await commentAPI.createComment(commentData.postId, { content: commentData.content });
+      await loadComments(commentData.postId);
+      await loadPosts();
+      toast.success('Comment added successfully.');
+    } catch (error) {
+      console.error('Error adding comment:', error);
+      toast.error('Failed to add comment.');
+    }
   };
 
-  const addComment = (commentData) => {
-    if (!user) return;
-
-    commentAPI.createComment(commentData.postId, { content: commentData.content })
-      .then(() => {
-        loadComments(commentData.postId);
-        loadPosts();
-      })
-      .catch((error) => {
-        console.error('Error adding comment:', error);
-      });
-  };
-
-  const loadComments = async (postId) => {
+  const loadComments = useCallback(async (postId) => {
     try {
       const response = await commentAPI.getComments(postId);
-      const commentsData = response.data.data.map((comment) => ({
+      const commentsData = response.data.data.map(comment => ({
         id: comment._id,
         content: comment.content,
         author: {
@@ -146,56 +138,51 @@ export const BlogProvider = ({ children }) => {
           email: comment.author.email,
           bio: comment.author.bio,
           avatar: comment.author.avatar,
-          joinDate: comment.author.createdAt
+          joinDate: comment.author.createdAt,
         },
         postId: comment.post,
         parentId: comment.parent,
         createdAt: comment.createdAt,
-        likes: comment.likes
+        likes: comment.likes,
       }));
       setComments(commentsData);
     } catch (error) {
       console.error('Error loading comments:', error);
+      toast.error('Failed to load comments.');
     }
-  };
+  }, []);
 
-  const likeComment = (id) => {
+  const likeComment = async (id) => {
     if (!user) return;
-
-    commentAPI.likeComment(id)
-      .then(() => {
-        const comment = comments.find((c) => c.id === id);
-        if (comment) {
-          loadComments(comment.postId);
-        }
-      })
-      .catch((error) => {
-        console.error('Error liking comment:', error);
-      });
+    try {
+      await commentAPI.likeComment(id);
+      const comment = comments.find(c => c.id === id);
+      if (comment) {
+        await loadComments(comment.postId);
+      }
+    } catch (error) {
+      console.error('Error liking comment:', error);
+      toast.error('Failed to like comment.');
+    }
   };
 
   const searchPosts = (query) => {
     if (!query.trim()) return posts;
-
     const lowercaseQuery = query.toLowerCase();
-    return posts.filter((post) =>
+    return posts.filter(post =>
       post.title.toLowerCase().includes(lowercaseQuery) ||
       post.content.toLowerCase().includes(lowercaseQuery) ||
-      post.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
+      post.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery))
     );
   };
 
-  const getPostById = (id) => {
-    return posts.find((post) => post.id === id);
-  };
+  const getPostById = (id) => posts.find(post => post.id === id);
 
-  const getPostsByAuthor = (authorId) => {
-    return posts.filter((post) => post.author.id === authorId);
-  };
+  const getPostsByAuthor = (authorId) => posts.filter(post => post.author.id === authorId);
 
   const getCommentsByPost = (postId) => {
     loadComments(postId);
-    return comments.filter((comment) => comment.postId === postId);
+    return comments.filter(comment => comment.postId === postId);
   };
 
   return (
