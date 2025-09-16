@@ -61,6 +61,7 @@ export const BlogProvider = ({ children }) => {
   };
 
   const createPost = (postData) => {
+    console.log("postData:",postData);
     if (!user) return;
 
     blogAPI.createPost(postData)
