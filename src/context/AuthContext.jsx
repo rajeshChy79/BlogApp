@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { authAPI } from '../services/api';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';  // Import CSS once in your app root (if not already)
 
 const AuthContext = createContext();
 
@@ -45,7 +47,7 @@ export const AuthProvider = ({ children }) => {
           name: userData.name,
           bio: userData.bio,
           avatar: userData.avatar,
-          joinDate: userData.createdAt
+          joinDate: userData.createdAt,
         })
       );
 
@@ -55,12 +57,15 @@ export const AuthProvider = ({ children }) => {
         name: userData.name,
         bio: userData.bio,
         avatar: userData.avatar,
-        joinDate: userData.createdAt
+        joinDate: userData.createdAt,
       });
 
       setLoading(false);
       return true;
     } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || 'Login failed';
+      toast.error(errorMessage);
       setLoading(false);
       return false;
     }
@@ -81,7 +86,7 @@ export const AuthProvider = ({ children }) => {
           name: newUser.name,
           bio: newUser.bio,
           avatar: newUser.avatar,
-          joinDate: newUser.createdAt
+          joinDate: newUser.createdAt,
         })
       );
 
@@ -91,12 +96,15 @@ export const AuthProvider = ({ children }) => {
         name: newUser.name,
         bio: newUser.bio,
         avatar: newUser.avatar,
-        joinDate: newUser.createdAt
+        joinDate: newUser.createdAt,
       });
 
       setLoading(false);
       return true;
     } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || 'Signup failed';
+      toast.error(errorMessage);
       setLoading(false);
       return false;
     }
