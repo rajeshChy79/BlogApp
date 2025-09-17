@@ -72,11 +72,11 @@
 
 > Replace with your actual images inside `docs/screenshots/`
 
-- ![Homepage](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/home.png)
-- ![Profile Page](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/profile.png)
-- ![chat bot](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/chatbot.png)
+- ![Homepage](./images/images/home.png)
+- ![Profile Page](./images/profile.png)
+- ![post create](./images/createPost.png)
+- ![chat bot](./images/chatbot.png)
 - ![post detail](./images/detail.png)
-- ![create post](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/createPost.png)
 
 
 ## ⚡ Quick Start
@@ -192,13 +192,13 @@ BlogSpace comes with a built-in **AI Chatbot** that helps users with:
 - 🔎 Smart Q&A and search assistance  
 
 ### Screenshot
-![Chatbot Screenshot](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/chatbot.png)
+![Chatbot Screenshot](./images/chatbot.png)
 
 ## 🎥 Demo Video
 
 Watch BlogSpace in action, including the **AI Chatbot**:  
 
-[![Watch the video](./images/blog-website-video.mp4)](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/blog-website-video.mp4)
+[![Watch the video](./images/blog-website-video.mp4)]
 
 
 📜 License
@@ -208,7 +208,6 @@ This project is licensed under the MIT License
 Feel free to use, modify, and distribute for personal or commercial projects.
 
 <div align="center"> Made with ❤️ by <a href="https://github.com/rajeshChy79">Rajesh Kumar Choudhary</a> </div>
-
 ## 👨‍💻 Author
 
 Developed with ❤️ by **Rajesh Kumar Choudhary**  
