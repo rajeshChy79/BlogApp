@@ -56,10 +56,6 @@ export const BlogProvider = ({ children }) => {
   }, [loadPosts]);
 
   const createPost = async (postData) => {
-<<<<<<< HEAD
-=======
-    console.log(postData);
->>>>>>> 65eff49 (Fix API_URL fallback, add .env.example, and update project configs)
     if (!user) return;
     try {
       await blogAPI.createPost(postData);
