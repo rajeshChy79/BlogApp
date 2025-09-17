@@ -25,7 +25,7 @@ const router = express.Router();
 // Blog main routes
 router.route('/')
   .get(optionalAuth, getBlogPosts)
-  .post(validateBlogPost, handleValidationErrors, createBlogPost);
+  .post(protect, validateBlogPost, handleValidationErrors, createBlogPost);
 
 router.get('/bookmarks', protect, getBookmarkedPosts);
 
