@@ -8,6 +8,8 @@ import authRoutes from './routes/auth.js';
 import blogRoutes from './routes/blogs.js';
 import commentRoutes from './routes/comments.js';
 import userRoutes from './routes/users.js';
+import chatbotRoutes from "./routes/chatBot.js"; // 👈 import chatbot route
+
 
 dotenv.config();
 connectDB();
@@ -30,6 +32,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/users', userRoutes);
+app.use("/api/chatbot", chatbotRoutes); // 👈 add chatbot route
 
 // Health check
 app.get('/api/health', (req, res) => {
