@@ -40,6 +40,12 @@ api.interceptors.response.use(
   }
 );
 
+
+// Chatbot API
+export const chatbotAPI = {
+  sendMessage: (message) => api.post("/chatbot", { message }),
+};
+
 // Auth API
 export const authAPI = {
   register: (userData) => api.post('/auth/register', userData),
