@@ -12,6 +12,8 @@ import Signup from './components/Signup';
 import Profile from './components/Profile';
 import CreatePost from './components/CreatePost';
 import BlogDetail from './components/BlogDetail';
+import Chatbot from './components/ChatBot';
+import { ChatbotProvider } from './context/ChatbotContext';
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
@@ -69,6 +71,7 @@ function AppContent() {
         </Routes>
       </main>
       <ToastContainer position="top-right" autoClose={3000} />
+      <Chatbot/>
     </div>
   );
 }
@@ -79,7 +82,9 @@ function App() {
     <Router>
       <AuthProvider>
         <BlogProvider>
+          <ChatbotProvider/>
           <AppContent />
+          <ChatbotProvider/>
         </BlogProvider>
       </AuthProvider>
     </Router>
