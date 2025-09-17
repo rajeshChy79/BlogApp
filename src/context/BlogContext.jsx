@@ -116,8 +116,11 @@ export const BlogProvider = ({ children }) => {
   const addComment = async (commentData) => {
     if (!user) return;
     try {
+      console.log(commentData);
       await commentAPI.createComment(commentData.postId, { content: commentData.content });
+      console.log("api call");
       await loadComments(commentData.postId);
+      console.log("api call2");
       await loadPosts();
       toast.success('Comment added successfully.');
     } catch (error) {
