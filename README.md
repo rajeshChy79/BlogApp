@@ -1,134 +1,219 @@
-BlogSpace
+<div align="center">
+  <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/react.svg" alt="BlogSpace Logo" width="80" height="80">
+  <h1>BlogSpace ✍️</h1>
+  <p><i>A modern full-stack blogging platform built with the MERN stack</i></p>
 
-A personal blogging platform where users can create, edit, and share their thoughts with the world.
-Features include user authentication, post management, pagination, comments, likes, bookmarks, and responsive design.
+  [![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react&logoColor=white)]()
+  [![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js&logoColor=white)]()
+  [![MongoDB](https://img.shields.io/badge/Database-MongoDB-47A248?logo=mongodb&logoColor=white)]()
+  [![Express](https://img.shields.io/badge/API-Express-000000?logo=express&logoColor=white)]()
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+</div>
 
-✨ Features
+---
 
-📝 Rich text editor for creating blog content
+## 🚀 Live Demo
 
-🔑 User authentication (Register, Login, Protected Routes with JWT)
+- **Frontend:** [BlogSpace Frontend](https://blogapp-frontend-mc3b.onrender.com)  
+- **Backend API:** [BlogSpace API](https://blogapp-mzev.onrender.com)
 
-➕ Create, Read, Update, and Delete blog posts
+---
 
-❤️ Like & Bookmark posts
+## 📑 Table of Contents
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#%EF%B8%8F-tech-stack)
+- [📸 Screenshots](#-screenshots)
+- [⚡ Quick Start](#-quick-start)
+- [⚙️ Environment Variables](#%EF%B8%8F-environment-variables)
+- [📡 API Reference](#-api-reference)
+- [☁️ Deployment](#%EF%B8%8F-deployment)
+- [🐞 Troubleshooting](#-troubleshooting)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
 
-💬 Comment on posts
+---
 
-👤 Profile page showing all user information and their posts
+## ✨ Features
 
-📚 Pagination on home page (6 posts per page)
+✅ User Authentication (JWT, bcrypt)  
+✅ Create, Read, Update, Delete (CRUD) blog posts  
+✅ Comment system with real-time updates  
+✅ Profile pages with post history  
+✅ Responsive design (mobile-first)  
+✅ Search and filter blogs  
+✅ Secure REST API with validation  
+✅ Deployment ready (Render, Vercel, Netlify)  
+✅ AI-powered chatbot integrated inside the app for blog assistance and smart interactions
 
-📱 Responsive design (mobile & desktop)
+---
 
-🤖 AI integration – used chatbot during development (later to be integrated in-app for suggestions)
+## 🛠️ Tech Stack
 
-🛠 Technologies Used
+**Frontend**
+- ⚛️ React (Vite)  
+- 🎨 Tailwind CSS  
+- 🔄 Axios for API calls  
+- 🛠️ React Router v6  
 
-Frontend: React.js, Tailwind CSS
+**Backend**
+- 🌐 Node.js + Express  
+- 🗄️ MongoDB with Mongoose  
+- 🔑 JWT Authentication  
+- 🛡️ CORS & Helmet Security  
 
-Backend: Node.js, Express.js
+**Dev Tools**
+- 📦 ESLint + Prettier  
+- 🧪 Postman for API testing  
+- 🐙 Git & GitHub for version control  
 
-Database: MongoDB (Mongoose)
+---
 
-Authentication: JWT
+## 📸 Screenshots
 
-Other: REST API
+> Replace with your actual images inside `docs/screenshots/`
 
-🚀 Installation
-1. Clone the repository
-git clone <your-repo-url>
+- ![Homepage](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/home.png)
+- ![Profile Page](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/profile.png)
+- ![chat bot](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/chatbot.png)
+- ![post detail](./images/detail.png)
+- ![create post](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/createPost.png)
 
-2. Backend Setup
-cd backend
+
+## ⚡ Quick Start
+
+### 1️⃣ Clone Repo
+```bash
+git clone https://github.com/rajeshChy79/BlogApp.git
+cd blogspace
+
+
+2️⃣ Install Dependencies
+
+Frontend:
+
+cd client
 npm install
-cp .env.example .env   # configure your MongoDB URI, JWT secret, etc.
-npm run dev            # starts backend server
 
-3. Frontend Setup
-cd frontend
+
+Backend:
+
+cd server
 npm install
-npm start
 
-4. Access the App
+3️⃣ Start Development
 
-Open browser: http://localhost:3000
+Start backend (port 5000):
 
-📌 Usage
+npm run dev
 
-Register or login to access protected features.
 
-Create, edit, delete blog posts using the editor.
+Start frontend (port 5173):
 
-Like, bookmark, and comment on blogs.
+npm run dev
 
-View paginated posts (6 per page).
 
-Manage your profile (edit, delete, view info).
+Visit → http://localhost:5173
 
-AI chatbot was used during development for faster feature implementation (planned for in-app integration for content suggestions).
+⚙️ Environment Variables
 
-📡 API Reference (Examples)
+Create .env in server:
 
-GET /api/blogs – list all posts (with pagination)
+PORT=5000
+MONGO_URI=your-mongodb-uri
+JWT_SECRET=your-secret-key
+JWT_EXPIRE=7d
 
-POST /api/blogs – create a new post
 
-PUT /api/blogs/:id – update post
+Create .env in client:
 
-DELETE /api/blogs/:id – delete post
+VITE_API_URL=http://localhost:5000/api
 
-POST /api/auth/register – register user
+📡 API Reference
+Auth
+POST /api/auth/register
+POST /api/auth/login
+GET  /api/auth/profile
 
-POST /api/auth/login – login user
+Posts
+GET    /api/posts
+GET    /api/posts/:id
+POST   /api/posts
+PUT    /api/posts/:id
+DELETE /api/posts/:id
 
-📂 Project Structure
-/backend     # Express.js REST API
-/frontend    # React.js web app
-/docs        # Screenshots, API docs
+Comments
+POST   /api/posts/:id/comments
+GET    /api/posts/:id/comments
+DELETE /api/comments/:id
 
-📸 Screenshots
+☁️ Deployment
+🔹 Render (Backend)
 
-Homepage
+Add environment variables (MONGO_URI, JWT_SECRET, etc.)
 
-Create Post
+Set Build Command: npm install
 
-Edit Post
+Set Start Command: npm start
 
-Login/Register
+🔹 Netlify / Vercel (Frontend)
 
-Profile Page
+Add VITE_API_URL=https://your-backend.onrender.com/api
 
-Comments, Likes, Bookmarks (not attached due to limit)
+Enable redirects in netlify.toml:
 
-🤖 AI Usage
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
-Used ChatGPT and AI tools for:
+🐞 Troubleshooting
 
-Debugging authentication flow
+❌ Token disappearing on production → Check JWT_EXPIRE format (7d, not 3600).
+❌ 404 on refresh → Add redirect rules on frontend host.
+❌ CORS issues → Add correct origin in backend CORS config.
 
-Optimizing pagination logic
+🤝 Contributing
 
-Designing API routes & data models
+🍴 Fork the project
 
-Preparing README & documentation
+🔧 Create a feature branch (git checkout -b feature/your-feature)
 
-Plan to integrate Chatbot in the app later for AI-based content suggestions for blogs.
+💾 Commit changes (git commit -m 'Add feature')
 
-✅ Submission Checklist
+📤 Push (git push origin feature/your-feature)
 
- GitHub repo with frontend + backend code
+🔀 Open a Pull Request
 
- README with setup instructions, AI usage, and documentation
+## 🤖 AI Chatbot
 
- REST API backend
+BlogSpace comes with a built-in **AI Chatbot** that helps users with:  
+- ✍️ Blog content suggestions while writing  
+- 📝 Drafting blog posts faster  
+- 🔎 Smart Q&A and search assistance  
 
- Working web interface (React frontend)
+### Screenshot
+![Chatbot Screenshot](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/chatbot.png)
 
- Screenshots of app usage
+## 🎥 Demo Video
 
- Bonus features (Pagination, Comments, Likes, Bookmarks, Profile Page)
+Watch BlogSpace in action, including the **AI Chatbot**:  
+
+[![Watch the video](./images/blog-website-video.mp4)](file:///F:/Major%20projects/Blog%20App/BlogSpace/images/blog-website-video.mp4)
+
 
 📜 License
 
-MIT License
+This project is licensed under the MIT License
+.
+Feel free to use, modify, and distribute for personal or commercial projects.
+
+<div align="center"> Made with ❤️ by <a href="https://github.com/rajeshChy79">Rajesh Kumar Choudhary</a> </div>
+
+## 👨‍💻 Author
+
+Developed with ❤️ by **Rajesh Kumar Choudhary**  
+
+- 💼 LinkedIn: [www.linkedin.com/in/rajeshchy]  
+- 📧 Email: [rajeshkumarchoudharyr1@gmail.com]  
+
+> ⚠️ Note: This project (BlogSpace) is my personal work. If you fork or use it, please provide proper credits.
