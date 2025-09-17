@@ -61,12 +61,14 @@ export const getBlogPost = async (req, res, next) => {
 // Create blog post attributed to logged-in user
 export const createBlogPost = async (req, res, next) => {
   try {
+    console.log("req come",req.user);
     req.body.author = req.user.id;
     console.log(req.user.id);
     const post = await BlogPost.create(req.body);
     console.log(post);
 
     const populatedPost = await BlogPost.findById(post._id).populate('author', 'name email avatar bio');
+    console.log(populatedPost);
 
     res.status(201).json({ success: true, data: populatedPost });
   } catch (error) {
