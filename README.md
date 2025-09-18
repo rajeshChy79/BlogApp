@@ -71,7 +71,7 @@
 ## 📸 Screenshots
 
 🏠 Home Page
-- ![Homepage](./images/images/home.png)
+- ![Homepage](./images/home.png)
   
 👤 Profile
 - ![Profile Page](./images/profile.png)
@@ -199,22 +199,21 @@ BlogSpace comes with a built-in **AI Chatbot** that helps users with:
 - 🔎 Smart Q&A and search assistance  
 
 ### Screenshot
-![Chatbot Screenshot](https://github.com/USERNAME/REPO_NAME/blob/main/images/chatbot.png?raw=true)
+![Chatbot Screenshot](https://github.com/rajeshChy79/BlogApp/blob/main/images/chatbot.png?raw=true)
 
 ## 🎥 Demo Video
 
 Watch BlogSpace in action, including the **AI Chatbot**:  
 
-[![Watch the video](./images/blog-thumbnail.png)](https://drive.google.com/file/d/17xN7vFKel8aBGUV1zqnw_gYlkyCFjD22/view?usp=drive_link)
-
+[![Watch the video](images/blog-thumbnail.png)](https://drive.google.com/file/d/17xN7vFKel8aBGUV1zqnw_gYlkyCFjD22/view?usp=drive_link)
 
 📜 License
 
-This project is licensed under the MIT License
-.
+This project is licensed under the MIT License.  
 Feel free to use, modify, and distribute for personal or commercial projects.
 
-<div align="center"> Made with ❤️ by <a href="https://github.com/rajeshChy79">Rajesh Kumar Choudhary</a> </div>
+<p align="center">Made with ❤️ by <a href="https://github.com/rajeshChy79">Rajesh Kumar Choudhary</a></p>
+
 ## 👨‍💻 Author
 
 Developed with ❤️ by **Rajesh Kumar Choudhary**  
