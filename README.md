@@ -59,7 +59,7 @@ BlogSpace comes with a built-in **AI Chatbot** that helps users with:
 
 Watch BlogSpace in action, including the **AI Chatbot**:  
 
-[![Watch the video](images/blog-thumbnail.png)](https://drive.google.com/file/d/17xN7vFKel8aBGUV1zqnw_gYlkyCFjD22/view?usp=drive_link)
+[Watch the video](https://drive.google.com/file/d/17xN7vFKel8aBGUV1zqnw_gYlkyCFjD22/view?usp=drive_link)
 
 ---
 
