@@ -70,12 +70,19 @@
 
 ## 📸 Screenshots
 
-> Replace with your actual images inside `docs/screenshots/`
-
+🏠 Home Page
 - ![Homepage](./images/images/home.png)
+  
+👤 Profile
 - ![Profile Page](./images/profile.png)
+  
+✍️ Create Post
 - ![post create](./images/createPost.png)
+  
+🤖 Chatbot Assistant
 - ![chat bot](./images/chatbot.png)
+
+📖 Post Details
 - ![post detail](./images/detail.png)
 
 
@@ -84,7 +91,7 @@
 ### 1️⃣ Clone Repo
 ```bash
 git clone https://github.com/rajeshChy79/BlogApp.git
-cd blogspace
+cd BlogSpace
 
 
 2️⃣ Install Dependencies
@@ -192,13 +199,13 @@ BlogSpace comes with a built-in **AI Chatbot** that helps users with:
 - 🔎 Smart Q&A and search assistance  
 
 ### Screenshot
-![Chatbot Screenshot](./images/chatbot.png)
+![Chatbot Screenshot](https://github.com/USERNAME/REPO_NAME/blob/main/images/chatbot.png?raw=true)
 
 ## 🎥 Demo Video
 
 Watch BlogSpace in action, including the **AI Chatbot**:  
 
-[![Watch the video](./images/blog-website-video.mp4)]
+[![Watch the video](./images/blog-thumbnail.png)](https://drive.google.com/file/d/17xN7vFKel8aBGUV1zqnw_gYlkyCFjD22/view?usp=drive_link)
 
 
 📜 License
