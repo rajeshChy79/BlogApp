@@ -45,6 +45,22 @@
 ✅ Deployment ready (Render, Vercel, Netlify)  
 ✅ AI-powered chatbot integrated inside the app for blog assistance and smart interactions
 
+## 🤖 AI Chatbot
+
+BlogSpace comes with a built-in **AI Chatbot** that helps users with:  
+- ✍️ Blog content suggestions while writing  
+- 📝 Drafting blog posts faster  
+- 🔎 Smart Q&A and search assistance  
+
+### Screenshot
+![Chatbot Screenshot](https://github.com/rajeshChy79/BlogApp/blob/main/images/chatbot.png?raw=true)
+
+## 🎥 Demo Video
+
+Watch BlogSpace in action, including the **AI Chatbot**:  
+
+[![Watch the video](images/blog-thumbnail.png)](https://drive.google.com/file/d/17xN7vFKel8aBGUV1zqnw_gYlkyCFjD22/view?usp=drive_link)
+
 ---
 
 ## 🛠️ Tech Stack
@@ -190,22 +206,6 @@ Enable redirects in netlify.toml:
 📤 Push (git push origin feature/your-feature)
 
 🔀 Open a Pull Request
-
-## 🤖 AI Chatbot
-
-BlogSpace comes with a built-in **AI Chatbot** that helps users with:  
-- ✍️ Blog content suggestions while writing  
-- 📝 Drafting blog posts faster  
-- 🔎 Smart Q&A and search assistance  
-
-### Screenshot
-![Chatbot Screenshot](https://github.com/rajeshChy79/BlogApp/blob/main/images/chatbot.png?raw=true)
-
-## 🎥 Demo Video
-
-Watch BlogSpace in action, including the **AI Chatbot**:  
-
-[![Watch the video](images/blog-thumbnail.png)](https://drive.google.com/file/d/17xN7vFKel8aBGUV1zqnw_gYlkyCFjD22/view?usp=drive_link)
 
 📜 License
 
